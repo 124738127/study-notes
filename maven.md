@@ -348,7 +348,7 @@ dependencyManagement中的 dependencies 并不影响项目的依赖项。
     </dependencies>
   </dependencyManagement>
 
-  <dependencies><!--引入依赖项，实际引入-->
+  <dependencies><!--引入依赖项，实际使用-->
     <dependency>
       ...
     </dependency>
@@ -362,10 +362,10 @@ The &lt;Dependency&gt; element contains information about a dependency of the pr
 ```xml
 <project>
   ...
-  <dependencies>
+  <dependencies><!--引入依赖项，实际使用-->
     <dependency>
-      <groupId>The project group that produced the dependency</groupId>
-      <artifactId>The unique id for an artifact produced by the project group</artifactId>
+      <groupId>The project group that produced the dependency.</groupId>
+      <artifactId>The unique id for an artifact produced by the project group.</artifactId>
       ...
     </dependency>
   </dependencies>
@@ -375,10 +375,68 @@ The &lt;Dependency&gt; element contains information about a dependency of the pr
 
 ## maven build
 
-todo
+The &lt;build&gt; element contains informations required to build the project. Default values are defined in Super POM.
 
+### maven plugin
+In Maven, there are two kinds of plugins, build and reporting:  
+1.**Build plugins** are executed during the build and configured in the &lt;build/&gt; element.  
+2.**Reporting plugins** are executed during the site generation and configured in the &lt;reporting/&gt; element.
 
+All plugins should have minimal required information: groupId, artifactId and version.
 
+#### &lt;pluginManagement&gt;
+Section for management of default plugin information for use in a group of POMs.
+
+#### &lt;plugins&gt;
+
+```xml
+<project>
+  ...
+  <build>
+    <pluginManagement><!--声明插件，用于管理-->
+      <plugins>
+        <plugin>
+          ...
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins><!--引入插件，实际使用-->
+      <plugin>
+        ...
+      </plugin>
+    </plugins>
+  </build>
+  ...
+</project>
+```
+
+#### &lt;plugin&gt;
+
+```xml
+<project>
+  ...
+  <build>
+    <plugins><!--引入插件，实际使用-->
+      <plugin>
+        <groupId>The group ID of the plugin in the repository.</groupId>
+        <artifactId>The artifact ID of the plugin in the repository.</artifactId>
+        ...
+        <dependencies>
+          <dependency>
+            the dependencies of the Build plugins.
+          </dependency>
+        </dependencies>
+        ...
+      </plugin>
+    </plugins>
+  </build>
+  ...
+</project>
+```
+
+plugin 和 dependency 的区别：  
+>dependency: maven工程编译后执行时依赖。  
+>plugin: maven工程构建或编译过程中依赖，但编译后执行时不依赖。
 
 
 
