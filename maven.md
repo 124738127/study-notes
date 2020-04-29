@@ -20,7 +20,7 @@ maven配置文件分为global setting和user setting。
 
 user setting > global setting，因此对于windows用户而言，可以直接删除user setting。
 
-####setting elements  
+#### setting elements  
   
 >`<localRepository>`: maven 本地仓库配置
 >
@@ -43,20 +43,20 @@ user setting > global setting，因此对于windows用户而言，可以直接�
 >`<pluginGroups>`: maven 插件，默认包括org.apache.maven.plugins和org.codehaus.mojo
 
 
-##maven POM
+## maven POM
 pom.xml是maven项目最基础的工作单元。  
 
 完整的pom文件可能使用的元素参考: http://maven.apache.org/ref/3.6.3/maven-model/maven.html
 
 
-###super pom
+### super pom
 所有pom文件的未定义部分均会继承自super pom文件。  
 super pom的maven源码地址: 
 ```
 {{project.home}}\maven-model-builder\src\main\resources\org\apache\maven\model
 ```
 
-###minimum pom
+### minimum pom
 至少需要如下五个元素才能构成最基本的pom文件：  
 ```
 <project>
@@ -82,7 +82,7 @@ super pom的maven源码地址:
 >fully qualified artifact name: <groupId&gt;:<artifactId&gt;: <version&gt;  
 >eg: com.mycompany.app:my-app:1  
 
-###&lt;parent&gt; & &lt;relativePath&gt; element 
+### &lt;parent&gt; & &lt;relativePath&gt; element 
 对于存在相似结构的maven工程，可以通过pom继承的方式减少配置工作。  
 maven工程通常可以根据文件路径划分为父子结构（上下级）或主从结构（同级）。
   
@@ -139,7 +139,7 @@ maven工程通常可以根据文件路径划分为父子结构（上下级）或
 注：出现两个pom相互继承的情况将会出错。
 
 
-###&lt;packaging&gt; & &lt;modules&gt;/&lt;module&gt;* element
+### &lt;packaging&gt; & &lt;modules&gt;/&lt;module&gt;* element
 对于多个maven工程，可以通过pom指定模块的方式聚合：  
 1. 使用&lt;packaging&gt;元素标识父pom或主操作pom；
 2. 使用&lt;modules&gt;/&lt;module&gt;*元素指定子pom或从操作pom模块。  
@@ -198,7 +198,7 @@ my-app下的pom.xml可以有：
 注：maven pom的继承和聚合互不干扰。
 
 
-###&lt;properties&gt; element
+### &lt;properties&gt; element
 
 pom文件中支持使用变量，变量要在&lt;properties&gt;元素内配置。  
 &lt;properties&gt;是&lt;project&gt;的subelement。  
@@ -228,7 +228,7 @@ pom文件中支持使用变量，变量要在&lt;properties&gt;元素内配置�
 >${maven.build.timestamp}:maven构建的时间戳
 
 
-##maven工程结构
+## maven工程结构
 标准maven工程结构参考super pom的定义。  
 但用户可以修改pom文件的&lt;build&gt;下的元素自行定义。
 
@@ -255,35 +255,35 @@ sample
 |-- ...
 ```
 
-##maven lifecycle
+## maven lifecycle
 maven lifecycle存在三个内置的lifecycle：
 >clean: 处理maven工程的清理  
 >>default: 处理maven工程的部署  
 >site: 处理maven工程的站点文档  
 
-###clean lifecycle
+### clean lifecycle
 clean lifecycle的主要操作：
-####maven clean
+#### maven clean
 清除maven工程的`${project.basedir}/target`文件夹，即清除maven构建后生成的文件。
 
-###default lifecycle
+### default lifecycle
 default lifecycle的主要操作：
-####maven compile
+#### maven compile
 maven工程编译源代码，包括main目录和test目录
 
-####maven test
+#### maven test
 maven工程执行编译后测试单元测试
 
-####maven package
+#### maven package
 maven工程编译后打包，生成jar或其他类型的可分发文件
 
-####maven verify
+#### maven verify
 maven工程可分发文件验证有效性和质量标准
 
-####maven install
+#### maven install
 maven工程的可分发文件存储至本地仓库
 
-####maven deploy
+#### maven deploy
 maven工程本地仓库的可分发文件推送至远程仓库，需要配置如下：
 
 1.配置pom.xml &lt;distributionManagement&gt;&&lt;repository&gt;
@@ -316,22 +316,22 @@ maven工程本地仓库的可分发文件推送至远程仓库，需要配置如
 </settings>
 ```
 
-###site lifecycle
+### site lifecycle
 site lifecycle的主要操作：
-####maven site
+#### maven site
 maven工程生成站点目录
 
 
-##maven dependency
+## maven dependency
 There is no limit to the number of levels that dependencies can be gathered from. A problem arises only if a cyclic dependency is discovered.
 
-###&lt;DependencyManagement&gt;
+### &lt;DependencyManagement&gt;
 Section for management of default dependency information for use in a group of POMs.
 
 只声明依赖，并不实际引入。  
 因此子项目需要声明依赖。如果不在子项目中声明依赖，是不会从父项目中继承的；只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都会被读取。
 
-###&lt;Dependencies&gt;
+### &lt;Dependencies&gt;
 The dependencies specified here are not used until they are referenced in a POM within the group.  
 This allows the specification of a "standard" version for a particular dependency.
 
@@ -357,7 +357,7 @@ dependencyManagement中的 dependencies 并不影响项目的依赖项。
 </project>
 ```
 
-###&lt;Dependency&gt;
+### &lt;Dependency&gt;
 The &lt;Dependency&gt; element contains information about a dependency of the project.
 ```xml
 <project>
@@ -373,8 +373,9 @@ The &lt;Dependency&gt; element contains information about a dependency of the pr
 </project>
 ```
 
-##maven build
+## maven build
 
+todo
 
 
 
